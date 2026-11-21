@@ -3,6 +3,7 @@ https://github.com/Sennevds/media_player.template
 """
 
 import logging
+from collections.abc import Sequence
 from typing import Any
 
 import voluptuous as vol
@@ -46,6 +47,7 @@ from homeassistant.exceptions import TemplateError
 from homeassistant.helpers import template
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.script import SCRIPT_MODE_PARALLEL
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 import homeassistant.util.dt as dt_util
 
@@ -232,23 +234,13 @@ class MediaPlayerTemplate(TemplateEntity, MediaPlayerEntity):
     def add_script(
         self,
         script_id: str,
-        config: ConfigType,
+        config: Sequence[dict[str, Any]],
         name: str,
         domain: str,
     ) -> None:
         """Add a script that may run concurrently."""
         super().add_script(script_id, config, name, domain)
-
-        script = self._action_scripts.get(script_id)
-        if script is None:
-            return
-
-        if hasattr(script, "_script_mode"):
-            script._script_mode = "parallel"
-        if hasattr(script, "_mode"):
-            script._mode = "parallel"
-        if hasattr(script, "_max_runs"):
-            script._max_runs = 10
+        self._action_scripts[script_id].script_mode = SCRIPT_MODE_PARALLEL
 
     def __init__(
         self,

@@ -45,6 +45,8 @@ Current implemented features:
 - current_is_muted_template
 - device_class
 
+Configured action scripts run in parallel, so repeated commands do not wait for an earlier run to finish.
+
 media_content_type_template can be one of the following values:
 
 - tv_show
