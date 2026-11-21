@@ -2,6 +2,9 @@
 
 media_player template for Home Assistant
 
+Jumpinf00l notes:
+- Configured action scripts run in parallel, so repeated commands do not wait for an earlier run to finish
+
 [![GitHub Release][releases-shield]][releases]
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 ![hacs_installations](https://raw.githubusercontent.com/golles/ha-active-installation-badges/main/badges/media_player_template.svg)
@@ -44,8 +47,6 @@ Current implemented features:
 - media_album_artist_template
 - current_is_muted_template
 - device_class
-
-Configured action scripts run in parallel, so repeated commands do not wait for an earlier run to finish.
 
 media_content_type_template can be one of the following values:
 

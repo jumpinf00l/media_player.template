@@ -1,4 +1,4 @@
 """
 Template for media-player
-https://github.com/Sennevds/media_player.template
+https://github.com/jumpinf00l/media_player.template
 """
