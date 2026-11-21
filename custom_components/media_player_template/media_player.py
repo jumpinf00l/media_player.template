@@ -229,6 +229,27 @@ class MediaPlayerTemplate(TemplateEntity, MediaPlayerEntity):
     _attr_should_poll = False
     _entity_id_format = ENTITY_ID_FORMAT
 
+    def add_script(
+        self,
+        script_id: str,
+        config: ConfigType,
+        name: str,
+        domain: str,
+    ) -> None:
+        """Add a script that may run concurrently."""
+        super().add_script(script_id, config, name, domain)
+
+        script = self._action_scripts.get(script_id)
+        if script is None:
+            return
+
+        if hasattr(script, "_script_mode"):
+            script._script_mode = "parallel"
+        if hasattr(script, "_mode"):
+            script._mode = "parallel"
+        if hasattr(script, "_max_runs"):
+            script._max_runs = 10
+
     def __init__(
         self,
         hass: HomeAssistant,
